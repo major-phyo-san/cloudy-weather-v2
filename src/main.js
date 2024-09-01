@@ -2,7 +2,7 @@ import { createApp } from 'vue/dist/vue.esm-bundler'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
-import store from './store'
+import { store } from './store'
 import './assets/css/tailwind.css'; // Import Tailwind CSS
 import Toast, { POSITION } from 'vue-toastification';
 import "vue-toastification/dist/index.css";

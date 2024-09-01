@@ -10,7 +10,7 @@ export async function getApiData(payload)
             'Access-Control-Allow-Origin': '*'
         }
     }).then(function(response){
-        let responsePayload = { data: null, message: null, success: response.data.success };
+        let responsePayload = { data: null, message: null, success: (response.status >= 100 && response.status <= 399)? true: false };
         if(response.data.data){
             responsePayload.data = response.data.data;
         }
@@ -24,7 +24,7 @@ export async function getApiData(payload)
         if(error.response){
             console.error('Error status code', error.response.status);
         }
-        if(error.response.data.message){
+        if(error.response && error.response.data.message){
             console.error('Error message', error.response.data.message);
             responsePayload = { message: error.response.data.message };
         }
