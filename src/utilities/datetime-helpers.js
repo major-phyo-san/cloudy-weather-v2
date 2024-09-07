@@ -16,11 +16,11 @@ export function getCurrentTime(hourOffset = 6, minuteOffset = 30)
     return time;
 }
 
-export function getCurretDateTime(hourOffset = 6, minuteOffset = 30)
+export function getCurrentDateTime(unixTimestamp = null, hourOffset = null, minuteOffset = null)
 {
-    let currentUnixTimeStamp = Math.floor(Date.now());
-    let hourOffsetTimestamp = (hourOffset * 3600) * 1000;
-    let minuteOffsetTimestamp = (minuteOffset * 60) * 1000;
+    let currentUnixTimeStamp = (unixTimestamp)? unixTimestamp: Math.floor(Date.now());    
+    let hourOffsetTimestamp = (hourOffset)? (hourOffset * 3600) * 1000: 0;
+    let minuteOffsetTimestamp = (minuteOffset)? (minuteOffset * 60) * 1000: 0;
     let newUnixTimeStamp = currentUnixTimeStamp + hourOffsetTimestamp + minuteOffsetTimestamp;
     let dateAndTime = new Date(newUnixTimeStamp).toISOString().split('T');
     let date = dateAndTime[0];
@@ -37,29 +37,30 @@ export function convertToFriendlyDate(dbDateString)
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; // Days of the week
 
     const date = new Date(unixTimestamp);
+    const dayName = days[date.getDay()]; // Get the day of the week
     const month = months[date.getMonth()];
     const day = ("0" + date.getDate()).slice(-2);
     const year = date.getFullYear();
 
-    return `${month} ${day}, ${year}`;
+    return `${month} ${day} (${dayName})`;
 }
 
 export function convertToFriendlyDateTime(dbDateString)
 {
     const date = new Date(dbDateString);
     const options = {
-        year: 'numeric',
+        // year: 'numeric',
         month: 'short',
         day: '2-digit',
         hour: 'numeric',
         minute: '2-digit',
-        second: '2-digit',
+        // second: '2-digit',
         hour12: true
       };
 
-      const formattedDate = date.toLocaleDateString('en-US', options);
       const formattedTime = date.toLocaleTimeString('en-US', options);
 
       return formattedTime;
@@ -109,4 +110,25 @@ export function getElapsedMoments(dbDateTimeString)
     } else {
         return 'just now';
     }
+}
+
+export function getUtcOffset(unixTimestamp){
+    const date = new Date(unixTimestamp * 1000);
+    // Get the timezone offset in minutes
+    const offsetInMinutes = date.getTimezoneOffset(); 
+
+    // Convert the offset to hours and minutes
+    // const hours = Math.floor(Math.abs(offsetInMinutes) / 60);
+    // const minutes = Math.abs(offsetInMinutes) % 60;
+
+    const hours = Math.floor((offsetInMinutes) / 60);
+    const minutes = (offsetInMinutes) % 60;
+
+    // Determine if the offset is positive or negative
+    // const sign = offsetInMinutes > 0 ? '-' : '+';
+
+    return {
+        'hours': parseInt(hours),
+        'minutes': parseInt(minutes)
+    };
 }

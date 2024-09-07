@@ -4,15 +4,15 @@ export async function getApiData(payload)
 {
     let response = null;
     response = await axios.get(payload.url, {
-        headers: {
-            'Content-Type': 'multipart/formdata',
-            'Authorization': 'Bearer ' + payload.token,
-            'Access-Control-Allow-Origin': '*'
-        }
+        // headers: {
+        //     'Content-Type': 'multipart/formdata',
+        //     'Authorization': 'Bearer ' + payload.token,
+        //     'Access-Control-Allow-Origin': '*'
+        // }
     }).then(function(response){
         let responsePayload = { data: null, message: null, success: (response.status >= 100 && response.status <= 399)? true: false };
-        if(response.data.data){
-            responsePayload.data = response.data.data;
+        if(response.data){
+            responsePayload.data = response.data;
         }
         if(response.data.message){
             responsePayload.message = response.data.message;
