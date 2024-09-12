@@ -192,7 +192,7 @@
             </div>
         </div> -->
 
-        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+        <div class="bg-white shadow-xl rounded-lg overflow-hidden" v-if="fiveDayForecast.length > 0">
             <div class="p-6">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">5-Day Forecast</h2>
                 <div class="space-y-6">
