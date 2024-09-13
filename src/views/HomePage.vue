@@ -245,8 +245,6 @@
 // import { collection, getDocs } from 'firebase/firestore';
 import { mapGetters, mapMutations } from 'vuex';
 import { getApiData } from '@/utilities/ajax-helpers';
-import { calculateDewpoint } from '@/utilities/data-calculation-helpers';
-import { getCurrentDateTime, convertToFriendlyDateTime } from '@/utilities/datetime-helpers';
 import { makeFormattedCurrentWeatherData, makeFormattedWeatherForecastData } from '@/utilities/data-format-helpers';
 import { useToast } from 'vue-toastification';
 
@@ -287,6 +285,7 @@ export default {
                             last_updated: new Date().getTime(),
                             validity_duration: 3 * 60 * 1000
                         };
+                        console.log(`workable location got`, currentLocation);
                         this.setCurrentLocation(currentLocation);
                         this.toast.info("Location granted.");
                         this.fetchWeather(currentLocation.latitude, currentLocation.longitude);
@@ -362,11 +361,17 @@ export default {
         // this.fetchWeather(51.509865, -0.118092);
         //9.02497 38.74689
         // this.fetchWeather(9.02497, 38.74689);
+        console.log(`fetching location and weather`);
         let currentLocation = this.getCurrentLocation();
-        if(!currentLocation){
-            currentLocation = this.requestBrowserLocation();
+        console.log(currentLocation);
+        
+        if(!currentLocation.latitude || !currentLocation.longitude){
+            console.log(`no location in saved, requesting`);
+            currentLocation = this.requestBrowserLocation();            
+            console.log(currentLocation);
         }
         if(currentLocation && (currentLocation.latitude && currentLocation.latitude)){
+            console.log(`workable location`, currentLocation);
             this.fetchWeather(currentLocation.latitude, currentLocation.longitude);
         }               
     },
