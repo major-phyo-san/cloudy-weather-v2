@@ -288,8 +288,7 @@ export default {
                         console.log(`workable location got`, currentLocation);
                         this.setCurrentLocation(currentLocation);
                         this.toast.info("Location granted.");
-                        this.fetchWeather(currentLocation.latitude, currentLocation.longitude);
-                        return currentLocation;
+                        this.fetchWeather(currentLocation.latitude, currentLocation.longitude);                        
                     },
                     (err) => {                        
                         this.toast.error("Location permission denied.");
@@ -336,10 +335,7 @@ export default {
 
                 if(currentWeatherResposeData && uviResponseData && aqiResponseData && forecastResponseData){
                     this.currentWeather = await makeFormattedCurrentWeatherData(currentWeatherResposeData, uviResponseData, aqiResponseData, null);
-                    this.fiveDayForecast = await makeFormattedWeatherForecastData(forecastResponseData, null);
-                    this.forecast.forEach((forecastByDate)=>{
-                        // console.log(forecastByDate);
-                    });
+                    this.fiveDayForecast = await makeFormattedWeatherForecastData(forecastResponseData, null);                    
                 }else{
                     // throw (new Excepton)
                     console.log(`error no data`);
@@ -358,22 +354,15 @@ export default {
     },
 
     mounted(){
-        // this.fetchWeather(51.509865, -0.118092);
-        //9.02497 38.74689
-        // this.fetchWeather(9.02497, 38.74689);
         console.log(`fetching location and weather`);
         let currentLocation = this.getCurrentLocation();
         console.log(currentLocation);
         
-        if(!currentLocation.latitude || !currentLocation.longitude){
-            console.log(`no location in saved, requesting`);
-            currentLocation = this.requestBrowserLocation();            
-            console.log(currentLocation);
-        }
-        if(currentLocation && (currentLocation.latitude && currentLocation.latitude)){
-            console.log(`workable location`, currentLocation);
+        if(currentLocation && (currentLocation.latitude && currentLocation.latitude)){            
             this.fetchWeather(currentLocation.latitude, currentLocation.longitude);
-        }               
+        }else{
+            this.requestBrowserLocation();
+        }             
     },
 }
 </script>
