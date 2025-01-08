@@ -5,9 +5,10 @@
                 <h1 class="text-xl font-semibold">Cloudy Weather</h1>
                 <nav class="flex space-x-4">
                     <!-- <router-link to="/" class="text-white hover:text-gray-300">Home</router-link> -->
+                    <router-link to="/settings" class="text-white hover:text-gray-300">Settings</router-link>
                     <router-link to="/about" class="text-white hover:text-gray-300">Home</router-link>
                     <router-link to="/cities" class="text-white hover:text-gray-300">Cities</router-link>
-                    <router-link to="/settings" class="text-white hover:text-gray-300">Settings</router-link>                    
+                    
                     <router-link to="/about" class="text-white hover:text-gray-300">About</router-link>
                     <!-- <router-link to="/weather" class="text-white hover:text-gray-300">Weather</router-link> -->                    
                 </nav>

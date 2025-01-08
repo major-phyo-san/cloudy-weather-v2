@@ -2,8 +2,7 @@ export default {
     state() {
         return {
             user: null,
-            token: null,
-            opwmKey: null,            
+            token: null 
         }
     },
 
@@ -14,10 +13,6 @@ export default {
 
         setToken(state, token){
             state.token = token;
-        },
-
-        setOpwmKey(state, token){
-            state.opwmKey = token;
         }
     },
 
@@ -30,10 +25,6 @@ export default {
 
         getToken(state){
             return state.token;
-        },
-
-        getOpwmKey(state){
-            return state.opwmKey;
         }
     }
 };

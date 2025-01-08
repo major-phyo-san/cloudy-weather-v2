@@ -1,7 +1,8 @@
 export default {
     state() {
         return {
-            current_location: {},            
+            current_location: {},
+            opwmKey: null,           
         };
     },
     getters: {
@@ -12,12 +13,19 @@ export default {
                 return null;
             }
             return state.current_location;
-        }        
+        },
+        getOpwmKey(state){
+            return state.opwmKey;
+        }   
     },
     mutations: {
         setCurrentLocation(state, location) {
             state.current_location = location;
-        }        
+        },
+
+        setOpwmKey(state, token){
+            state.opwmKey = token;
+        }
     },
 
     actions: {},
