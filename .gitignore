@@ -2,6 +2,7 @@
 node_modules
 /dist
 /dev-dist
+/public/data/cities.min.json
 
 # local env files
 .env.local

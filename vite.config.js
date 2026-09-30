@@ -8,7 +8,7 @@ export default defineConfig({
         vue(),
         VitePWA({
             registerType: 'autoUpdate',
-            injectRegister: 'auto',
+            injectRegister: null,
             devOptions: {
                 enabled: true,
                 type: 'module'
@@ -35,6 +35,17 @@ export default defineConfig({
                             expiration: {
                                 maxEntries: 50,
                                 maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                            },
+                        },
+                    },
+                    {
+                        urlPattern: /\/data\/cities\.min\.json$/i,
+                        handler: 'CacheFirst',
+                        options: {
+                            cacheName: 'city-search-data',
+                            expiration: {
+                                maxEntries: 1,
+                                maxAgeSeconds: 60 * 60 * 24 * 365,
                             },
                         },
                     },
